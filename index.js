@@ -51,19 +51,14 @@ app.post("/api/persons", (request, response) => {
     });
   }
 
-  const sameName = persons.find((person) => person.name === body.name);
-  if (sameName) {
-    return response.status(400).json({
-      error: "must provide unique name",
-    });
-  }
+  const person = new Person({
+    name: body.name,
+    number: body.number,
+  });
 
-  const person = {
-    ...body,
-    id: Math.floor(Math.random() * 1000000),
-  };
-  persons = persons.concat(person);
-  response.json(person);
+  person.save().then((savedPerson) => {
+    response.json(savedPerson);
+  });
 });
 
 const PORT = process.env.PORT;
