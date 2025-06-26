@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 const mongoose = require("mongoose");
 
 if (process.argv.length < 3) {
@@ -27,7 +29,7 @@ const person = new Person({
 });
 
 if (process.argv.length == 5) {
-  person.save().then((result) => {
+  person.save().then(() => {
     console.log(`added ${person.name} number ${person.number} to phonebook`);
     mongoose.connection.close();
   });
